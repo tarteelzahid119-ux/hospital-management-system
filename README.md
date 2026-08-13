@@ -509,3 +509,5 @@ npm run test:watch
 ## Notes on Notifications
 
 Notifications are intentionally **simulated/log-based** per the assignment requirements — every appointment lifecycle change is written to server logs and stored in-memory, retrievable via `GET /api/notifications`. In a real deployment this module is the integration point for a provider like Twilio (SMS) or SendGrid (email); the service is isolated in `services/notificationService.js` so swapping in a real provider only requires changing that one file.
+
+<!-- Local development setup -->
