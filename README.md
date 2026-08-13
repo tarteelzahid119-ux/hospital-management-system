@@ -462,8 +462,6 @@ This runs:
   - `report.test.js`: daily/weekly summary report contents and access control.
   - `report.test.js` (Notifications API block): notification retrieval after an appointment event.
 
-> Note: the first test run downloads a MongoDB binary for `mongodb-memory-server` (requires outbound internet access once; cached afterward). This is handled automatically in the GitHub Actions CI pipeline.
-
 Watch mode while developing:
 ```bash
 npm run test:watch
@@ -478,7 +476,6 @@ npm run test:watch
 2. On Render: **New → Web Service**, connect the repo, set **Root Directory** to `backend`.
 3. Build command: `npm install`  |  Start command: `npm start`
 4. Add environment variables: `MONGO_URI` (Atlas connection string), `JWT_SECRET`, `JWT_EXPIRES_IN`, `CLIENT_URL` (your deployed frontend URL), `NODE_ENV=production`.
-5. Deploy. Render gives you a public URL like `https://hms-backend.onrender.com`.
 
 ### Backend (Railway)
 1. **New Project → Deploy from GitHub repo**, set root directory to `backend`.
@@ -489,7 +486,6 @@ npm run test:watch
 ### Frontend (Render — Static Site, or Railway)
 1. **New → Static Site**, root directory `frontend`.
 2. Build command: `npm install && npm run build`  |  Publish directory: `dist`
-3. Environment variable: `VITE_API_BASE_URL=https://<your-backend-url>/api`
 4. Deploy.
 
 ### Database (MongoDB Atlas — recommended for both)
@@ -506,8 +502,6 @@ npm run test:watch
 
 ---
 
-## Notes on Notifications
 
-Notifications are intentionally **simulated/log-based** per the assignment requirements — every appointment lifecycle change is written to server logs and stored in-memory, retrievable via `GET /api/notifications`. In a real deployment this module is the integration point for a provider like Twilio (SMS) or SendGrid (email); the service is isolated in `services/notificationService.js` so swapping in a real provider only requires changing that one file.
 
-<!-- Local development setup -->
+
