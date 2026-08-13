@@ -1,0 +1,46 @@
+## ER Diagram (Text)
+
+```
+ ┌────────────┐        ┌──────────────┐
+ │    User    │ 1    1 │    Doctor    │
+ │------------│◄──────►│--------------│
+ │ _id        │(optional)│ _id         │
+ │ name       │link      │ name        │
+ │ email      │          │ specialization│
+ │ password   │          │ email/phone │
+ │ role       │          │ availability│
+ └─────┬──────┘          └──────┬───────┘
+       │ 1                      │ 1
+       │ registers               │ is assigned to
+       │ *                       │ *
+ ┌─────▼──────┐          ┌───────▼────────┐
+ │  Patient   │ 1      * │  Appointment   │
+ │------------│◄────────►│----------------│
+ │ _id        │           │ _id            │
+ │ name/age   │           │ patient (FK)   │
+ │ gender     │           │ doctor  (FK)   │
+ │ medicalHist│           │ date/time      │
+ └─────┬──────┘           │ status         │
+       │ 1                └───────┬────────┘
+       │ has                      │ 0..1
+       │ *                        │ generates
+ ┌─────▼──────┐                   │
+ │    Bill    │◄──────────────────┘
+ │------------│
+ │ _id        │
+ │ patient(FK)│
+ │ appointment(FK, optional)│
+ │ treatments[]│
+ │ totalAmount │
+ │ paymentStatus│
+ └────────────┘
+```
+
+**Relationships:**
+- One `User` (role=doctor) can optionally link to one `Doctor` profile (1:1).
+- One `Doctor` has many `Appointment`s (1:N).
+- One `Patient` has many `Appointment`s and many `Bill`s (1:N each).
+- One `Appointment` can generate at most one `Bill` (1:0..1).
+- `User` (admin/receptionist) creates/registers many `Patient`s, `Appointment`s, and `Bill`s (audit trail via `createdBy` / `registeredBy` / `generatedBy`).
+
+---
